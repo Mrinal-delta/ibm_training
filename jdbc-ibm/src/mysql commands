@@ -1,0 +1,98 @@
+//Mysql
+
+//creates a database training
+create database training;
+
+//this line show all the available databases
+show databases;
+
+//this line changes the database to work with
+use training;
+
+//this line shows the tables in a database
+show tables
+
+//DDLs - Data Definition Language
+
+
+//Create/create - creating table
+ create table citizen(
+  id int PRIMARY KEY,
+  name varchar(50) not null,
+  age int not null,
+ city varchar(15) not null
+ );
+
+//Alter - for adding or removing columns from the table
+alter table citizen add phone_no varchar(10);
+
+ 
+//Drop - for dropping the whole table or columns
+////Drop Table - for droping table
+drop table citizen;
+
+////Drop Column - for dropping column used with alter command
+drop column 
+alter table citizen drop column phone_no;
+
+//DQL - Data Query Language
+
+//Select/select - selecting the whole database
+select * from training;
+
+//DML - Data Manipulation Language
+
+//Insert/insert - to insert data in table
+insert into citizen values(101,'Polo',21,'Pune');
+insert into citizen values(102,'Jack',22,'Delhi');
+insert into citizen values(103,'Hector',35,'Mumbai');
+insert into citizen values(104,'Ben',27,'Kolkata');
+
+//updating a specific row on the table
+update citizen set city = 'Bangalore' where name = 'Ben';
+
+//updating the phone no row
+alter table citizen add phone_no varchar(10) unique;
+
+update citizen set phone_no = 1568945645  where id = 101;
+update citizen set phone_no = 7875461237  where id = 102;
+update citizen set phone_no = 5678912346  where id = 103;
+update citizen set phone_no = 4578912346  where id = 104;
+
+
+
+
+JDBC connection code withou factory
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.DatabaseMetaData;
+import com.mysql.cj.jdbc.Driver;
+
+public class ConnectionDemo {
+
+	public static void main(String[] args) {
+		//url for connection
+		String url = "jdbc:mysql://localhost:3306/training";
+		
+		//driver
+		try {
+			Driver driver = new Driver();
+			DriverManager.registerDriver(driver);
+			Connection conn = DriverManager.getConnection(url,"root","my$qlR00t7980");
+			System.out.println("Connection successful");
+			
+			DatabaseMetaData meta = conn.getMetaData();
+			System.out.println("DB Name: "+ meta.getDatabaseProductName());
+			System.out.println("DB Ver: "+meta.getDatabaseProductVersion());
+			System.out.println("Driver Name: "+meta.getDriverName());
+			System.out.println("Driver Ver: "+meta.getDriverVersion());
+		} catch (SQLException e) {
+			System.out.println("Connection failed");
+			e.printStackTrace();
+		}
+		
+	}
+
+}

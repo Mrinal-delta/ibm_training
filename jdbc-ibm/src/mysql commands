@@ -59,7 +59,8 @@ update citizen set phone_no = 7875461237  where id = 102;
 update citizen set phone_no = 5678912346  where id = 103;
 update citizen set phone_no = 4578912346  where id = 104;
 
-
+//deleting rows
+delete from flight where destination is NULL;
 
 
 JDBC connection code withou factory
